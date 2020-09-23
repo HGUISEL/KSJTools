@@ -16,6 +16,8 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+apply plugin: 'application'
+mainClassName = "edu.handong.csee.isel.Main"
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -26,4 +28,9 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.13'
+    
+    // https://mvnrepository.com/artifact/commons-cli/commons-cli
+	compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+	compile 'commons-cli:commons-cli:1.4'
+    
 }
