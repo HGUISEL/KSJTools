@@ -19,24 +19,6 @@ public class Main {
 		Main  runner = new Main();
 		runner.runner(args);
 		
-		/* read file 
-		 * try {
-            File file = new File("/Users/sujin/Desktop/ISEL/DPstudy/datasets/promise/cm1-0.arff");
-
-            FileReader filereader = new FileReader(file);
-
-            BufferedReader bufReader = new BufferedReader(filereader);
-            String line = "";
-            while((line = bufReader.readLine()) != null) {
-                System.out.println(line);
-            }
-        }
-        catch (FileNotFoundException e) {
-
-        }
-        catch (IOException e) {
-            System.out.println(e);
-        }*/
     }
 	
 	void runner (String[] args) {
@@ -45,7 +27,15 @@ public class Main {
 		
 		if (parseOptions(options, args)) {
 			
+			if (help ) {
+				printHelp(options);
+			}
+			
+			Analyzer analyze = new Analyzer(originalFilePath, resultFilePath, posLabelName);
+
+			
 		}
+	
 		
 		
 	}
