@@ -16,7 +16,7 @@ public class ReadFile {
 	}
 	
 	public ArrayList<String> readArffFile() {
-		int i=0;
+		
 		ArrayList<String> lines = new ArrayList<String>();
 		String thisLine="";
 		
@@ -26,7 +26,7 @@ public class ReadFile {
 				
 				if(!thisLine.startsWith("@") && !thisLine.trim().equals("") && !thisLine.startsWith("%")) {
 					lines.add(thisLine);
-					//System.out.println(i + " " + lines.get(i++));
+
 				}
 			} 
 			br.close();
@@ -41,7 +41,7 @@ public class ReadFile {
 	}
 	
 	public ArrayList<String> readResultFile() {
-		int i=0;
+		
 		ArrayList<String> lines = new ArrayList<String>();
 		String thisLine="";
 		
@@ -51,7 +51,7 @@ public class ReadFile {
 			
 			while ((thisLine = br.readLine()) != null) {
 				lines.add(thisLine);
-				//System.out.println(i + " " + lines.get(i++));
+
 			}
 		}
 		catch (IOException e) {

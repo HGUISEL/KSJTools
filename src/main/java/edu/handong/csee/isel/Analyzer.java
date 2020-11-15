@@ -63,7 +63,7 @@ public class Analyzer {
 		
 	}
 	
-	// buggy와 같이 input으로 받는 positive를 TRUE로, 아닌 것을 FALSE로 
+	// input으로 받는 positive label name을 TRUE로, 아닌 것을 FALSE로 
 	public ArrayList<String> changeLabelName(ArrayList<String> originalClassList, String positiveName) {
 		
 		ArrayList<String> changedClassLabelList = new ArrayList<String>();
