@@ -11,17 +11,18 @@ public class Main {
 
 	String originalFilePath;
 	String resultFilePath;
+	String attributeName;
 	String posLabelName;
 	boolean help = false;
 	
-	public static void main (String[] args) {
+	public static void main (String[] args) throws Exception {
         
-		Main  runner = new Main();
+		Main runner = new Main();
 		runner.runner(args);
 		
     }
 	
-	void runner (String[] args) {
+	void runner (String[] args) throws Exception {
 		
 		Options options = createOptions();
 		
@@ -31,7 +32,7 @@ public class Main {
 				printHelp(options);
 			}
 			
-			Analyzer analyze = new Analyzer(originalFilePath, resultFilePath, posLabelName);
+			Analyzer analyze = new Analyzer(originalFilePath, resultFilePath, attributeName, posLabelName);
 
 			
 		}
@@ -62,10 +63,17 @@ public class Main {
 				.desc("Help")
 				.build());
 		
+		options.addOption(Option.builder("l").longOpt("label")
+				.desc("label (Class attrubite) name")
+				.hasArg()
+				.argName("attribute name")
+				.required()
+				.build());
+		
 		options.addOption(Option.builder("p").longOpt("poslabel")
 				.desc("String value of bug label")
 				.hasArg()
-				.argName("positive label name")
+				.argName("positive label value")
 				.required()
 				.build());
 		
@@ -82,6 +90,7 @@ public class Main {
 			originalFilePath = cmd.getOptionValue("f");
 			resultFilePath = cmd.getOptionValue("r");
 			posLabelName = cmd.getOptionValue("p");
+			attributeName = cmd.getOptionValue("l");
 			help = cmd.hasOption("h");
 			
 		} catch (Exception e) {
@@ -95,7 +104,7 @@ public class Main {
 	private void printHelp(Options options) {
 		
 		HelpFormatter formatter = new HelpFormatter();
-		String header = "This is tool for compare the defect result of spectral classifier with original arff file, so that we can get a defect prediction performace of spectral classifier.";
+		String header = "This is tool for compare the defect result of spectral classifier with the original arff file, so that we can get a defect prediction performance of spectral classifier.";
 		String footer = "Please check help page for input arguments.";
 		formatter.printHelp("./KSJtools", header, options, footer, true);
 		
