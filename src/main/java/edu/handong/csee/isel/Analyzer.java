@@ -93,22 +93,22 @@ public class Analyzer {
 				//System.out.println(" this is TRUE(clean) in original");
 				if (resultClassList.get(j).equals("TRUE")) {
 					TP++;
-					System.out.println("Instance " + j+1 + " predicted as, buggy, (Actual class: buggy)");
+					System.out.println("Instance " + j + " predicted as, buggy, (Actual class: buggy)");
 				}
 				else {
 					FN++;
-					System.out.println("Instance " + j+1 + " predicted as, clean, (Actual class: buggy)"); 
+					System.out.println("Instance " + j + " predicted as, clean, (Actual class: buggy)"); 
 				}
 			}
 			else if (changedClassList.get(j).equals("FALSE")) {
 				//System.out.println(" this is FALSE(buggy) in original");
 				if (resultClassList.get(j).equals("TRUE")) {
 					FP++;
-					System.out.println("Instance " + j+1 + " predicted as, buggy, (Actual class: clean)");
+					System.out.println("Instance " + j + " predicted as, buggy, (Actual class: clean)");
 				}
 				else {
 					TN++;
-					System.out.println("Instance " + j+1 + " predicted as, clean, (Actual class: clean)");
+					System.out.println("Instance " + j + " predicted as, clean, (Actual class: clean)");
 				}
 			}
 		}
