@@ -7,20 +7,21 @@ import java.util.ArrayList;
 
 public class ReadFile {
 
-	private String filePath;
+	private String arffFilePath;
+	private String resultFilePath;
 	
-	public ReadFile(String fileName) {
-		filePath = fileName;
+	public ReadFile(String arffFileName, String resultFileName) {
+		arffFilePath = arffFileName;
+		resultFilePath = resultFileName;
 	}
 	
-	public ArrayList<String> readFile() {
-		
-
+	public ArrayList<String> readArffFile() {
+		int i=0;
 		ArrayList<String> lines = new ArrayList<String>();
 		String thisLine="";
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(filePath));
+			BufferedReader br = new BufferedReader(new FileReader(arffFilePath));
 			while ((thisLine = br.readLine()) != null) {
 				
 				if(!thisLine.startsWith("@") && !thisLine.trim().equals("") && !thisLine.startsWith("%")) {
@@ -36,6 +37,28 @@ public class ReadFile {
 		
 		return lines;
 		
+		
+	}
+	
+	public ArrayList<String> readResultFile() {
+		int i=0;
+		ArrayList<String> lines = new ArrayList<String>();
+		String thisLine="";
+		
+		try {
+			@SuppressWarnings("resource")
+			BufferedReader br = new BufferedReader(new FileReader(resultFilePath));
+			
+			while ((thisLine = br.readLine()) != null) {
+				lines.add(thisLine);
+				//System.out.println(i + " " + lines.get(i++));
+			}
+		}
+		catch (IOException e) {
+			System.err.println("Error: " + e);
+		}
+		
+		return lines;
 		
 	}
 }

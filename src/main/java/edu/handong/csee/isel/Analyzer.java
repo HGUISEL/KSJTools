@@ -8,9 +8,11 @@ import weka.core.converters.ConverterUtils.DataSource;
 public class Analyzer {
 
 	private ArrayList<String> originalClassList = new ArrayList<String>();
+	private ArrayList<String> resultClassList = new ArrayList<String>();
 	
 	public Analyzer(String originalFilePath, String resultFilePath, String attributeName, String positiveLabel) throws Exception {
-		String[] string;
+		String[] string1;
+		String[] string2;
 		DataSource source = new DataSource(originalFilePath);
 		Instances instances = source.getDataSet();
 		// Instance inst = instances.firstInstance(); 
@@ -18,27 +20,35 @@ public class Analyzer {
 		
 		instances.setClassIndex(instances.numAttributes()-1);
 		
-		System.out.println("class attribute: " + instances.classAttribute()); // class attribute ( ex) @attribute class {buggy,clean} )
-		System.out.println("index of class: " + instances.classIndex()); // index is start from 0
-		System.out.println("numInstances: " + instances.numInstances());  // number of all instances
+		//System.out.println("class attribute: " + instances.classAttribute()); // class attribute ( ex) @attribute class {buggy,clean} )
+		//System.out.println("index of class: " + instances.classIndex()); // index is start from 0
+		//System.out.println("numInstances: " + instances.numInstances());  // number of all instances
 		//System.out.println("index of class: " + inst.classIndex()); // class label의 index 
-		System.out.println("number of attributes: " + instances.numAttributes()); // number of all attributes
+		//System.out.println("number of attributes: " + instances.numAttributes()); // number of all attributes
 		
-		ArrayList<String> lines = new ArrayList<String>();
+		ArrayList<String> lines = new ArrayList<String>(); // has list of all original class 
+		ArrayList<String> resultLines = new ArrayList<String>(); // has list of all result class 
 		
-		ReadFile readFile = new ReadFile(originalFilePath);
-		lines = readFile.readFile();
+		ReadFile readFile = new ReadFile(originalFilePath, resultFilePath);
+		lines = readFile.readArffFile();  // read arff file
+		resultLines = readFile.readResultFile(); // read result file
 		
+		// split instance with comma "," and extract class label in originalClassList
 		for (int j=0;j<lines.size();j++) {
-			//System.out.println(lines.get(j));
-			string = lines.get(j).split(",");
-			//System.out.println(string[inst.classIndex()]);
-			originalClassList.add(string[instances.classIndex()]);
+			string1 = lines.get(j).split(",");
+			originalClassList.add(string1[instances.classIndex()]); // extract class label
 		}
-		for (int j=0;j<originalClassList.size();j++) {
-			System.out.println(j+ " " + originalClassList.get(j));
+		
+		// split result with "]" and extract result in resultClassList
+		for (int j=1;j<resultLines.size();j++) {
+			string2 = resultLines.get(j).split("]", 2);
+			//System.out.println(string2[1].trim());
+			resultClassList.add(string2[1].trim());
 		}
-
+		
+		/* for (int j=0;j<resultClassList.size();j++) {
+			System.out.println(j+ " " + originalClassList.get(j) + " " + resultClassList.get(j));
+		} */
 		
 	}
 	
