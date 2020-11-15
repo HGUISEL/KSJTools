@@ -38,7 +38,6 @@ public class Analyzer {
 		for (int j=0;j<lines.size();j++) {
 			string1 = lines.get(j).split(",");
 			originalClassList.add(string1[instances.classIndex()]); // extract class label
-			//System.out.println(j+ " " +originalClassList.get(j));
 		}
 		
 		// split result with "]" and extract result in resultClassList
@@ -50,7 +49,8 @@ public class Analyzer {
 			System.out.println(j+ " " + originalClassList.get(j) + " " + resultClassList.get(j));
 		} */
 		
-		changedClassList = changeLabelName(originalClassList, positiveLabel);
+		setChangedClassList(changeLabelName(originalClassList, positiveLabel));
+		
 		
 		
 	}
@@ -76,6 +76,14 @@ public class Analyzer {
 		*/
 		return changedClassLabelList; 
 	
+	}
+
+	public ArrayList<String> getChangedClassList() {
+		return changedClassList;
+	}
+
+	public void setChangedClassList(ArrayList<String> changedClassList) {
+		this.changedClassList = changedClassList;
 	}
 	
 	
