@@ -9,6 +9,7 @@ public class Analyzer {
 
 	private ArrayList<String> originalClassList = new ArrayList<String>();
 	private ArrayList<String> resultClassList = new ArrayList<String>();
+	private ArrayList<String> changedClassList = new ArrayList<String>();
 	
 	public Analyzer(String originalFilePath, String resultFilePath, String attributeName, String positiveLabel) throws Exception {
 		String[] string1;
@@ -37,19 +38,44 @@ public class Analyzer {
 		for (int j=0;j<lines.size();j++) {
 			string1 = lines.get(j).split(",");
 			originalClassList.add(string1[instances.classIndex()]); // extract class label
+			//System.out.println(j+ " " +originalClassList.get(j));
 		}
 		
 		// split result with "]" and extract result in resultClassList
 		for (int j=1;j<resultLines.size();j++) {
 			string2 = resultLines.get(j).split("]", 2);
-			//System.out.println(string2[1].trim());
-			resultClassList.add(string2[1].trim());
+			resultClassList.add(string2[1].trim()); // extract class label
 		}
-		
 		/* for (int j=0;j<resultClassList.size();j++) {
 			System.out.println(j+ " " + originalClassList.get(j) + " " + resultClassList.get(j));
 		} */
 		
+		changedClassList = changeLabelName(originalClassList, positiveLabel);
+		
+		
+	}
+	
+	// buggy와 같이 input으로 받는 positive를 TRUE로, 아닌 것을 FALSE로 
+	public ArrayList<String> changeLabelName(ArrayList<String> originalClassList, String positiveName) {
+		
+		ArrayList<String> changedClassLabelList = new ArrayList<String>();
+		
+		for (int i=0;i<originalClassList.size();i++) {
+			if (positiveName.equals(originalClassList.get(i))) {
+				// System.out.println(" pos: "+ originalClassList.get(i));
+				changedClassLabelList.add(i, "TRUE");
+			}
+			else {
+				changedClassLabelList.add(i, "FALSE");
+			}
+		}
+		/*
+		for (int i=0;i<changedClassLabelList.size();i++) {
+			System.out.println(" " + i + " "+ originalClassList.get(i) + " " + changedClassLabelList.get(i));
+		}
+		*/
+		return changedClassLabelList; 
+	
 	}
 	
 	
