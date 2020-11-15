@@ -10,6 +10,10 @@ public class Analyzer {
 	private ArrayList<String> originalClassList = new ArrayList<String>();
 	private ArrayList<String> resultClassList = new ArrayList<String>();
 	private ArrayList<String> changedClassList = new ArrayList<String>();
+	private int TP=0;
+	private int FP=0;
+	private int TN=0;
+	private int FN=0;
 	
 	public Analyzer(String originalFilePath, String resultFilePath, String attributeName, String positiveLabel) throws Exception {
 		String[] string1;
@@ -51,7 +55,11 @@ public class Analyzer {
 		
 		setChangedClassList(changeLabelName(originalClassList, positiveLabel));
 		
-		
+		/*
+		for (int j=0;j<resultClassList.size();j++) {
+			System.out.println(j+ " " + changedClassList.get(j) + " " + resultClassList.get(j));
+		}
+		*/
 		
 	}
 	
@@ -77,6 +85,51 @@ public class Analyzer {
 		return changedClassLabelList; 
 	
 	}
+	
+	public void calcConfusionMatrix() {
+		for (int j=0;j<resultClassList.size();j++) {
+			//System.out.println(j+ " " + changedClassList.get(j) + " " + resultClassList.get(j));
+			if (changedClassList.get(j).equals("TRUE")) {
+				//System.out.println(" this is TRUE(clean) in original");
+				if (resultClassList.get(j).equals("TRUE")) {
+					TP++;
+					System.out.println("Instance " + j+1 + " predicted as, buggy, (Actual class: buggy)");
+				}
+				else {
+					FN++;
+					System.out.println("Instance " + j+1 + " predicted as, clean, (Actual class: buggy)"); 
+				}
+			}
+			else if (changedClassList.get(j).equals("FALSE")) {
+				//System.out.println(" this is FALSE(buggy) in original");
+				if (resultClassList.get(j).equals("TRUE")) {
+					FP++;
+					System.out.println("Instance " + j+1 + " predicted as, buggy, (Actual class: clean)");
+				}
+				else {
+					TN++;
+					System.out.println("Instance " + j+1 + " predicted as, clean, (Actual class: clean)");
+				}
+			}
+		}
+		System.out.println("TP: " + TP);
+		System.out.println("FP: " + FP);
+		System.out.println("TN: " + TN);
+		System.out.println("FN: " + FN);
+		
+		System.out.println("total: " + (TN+FP+FN+TP));
+		
+	}
+	
+	public void printEvaluationResult() {
+		double precision = (double) TP/(TP+FP);
+		double recall = (double) TP/(TP+FN);
+		double f1 = (double) (2*(precision*recall)) / (precision+recall);
+		System.out.println("precision: " + precision);
+		System.out.println("recall: " + recall);
+		System.out.println("f1: " + f1);
+		
+	}
 
 	public ArrayList<String> getChangedClassList() {
 		return changedClassList;
@@ -85,6 +138,5 @@ public class Analyzer {
 	public void setChangedClassList(ArrayList<String> changedClassList) {
 		this.changedClassList = changedClassList;
 	}
-	
 	
 }

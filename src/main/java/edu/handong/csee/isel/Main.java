@@ -34,6 +34,9 @@ public class Main {
 			
 			Analyzer analyze = new Analyzer(originalFilePath, resultFilePath, attributeName, posLabelName);
 
+			analyze.calcConfusionMatrix();
+			
+			analyze.printEvaluationResult();
 			
 		}
 	
