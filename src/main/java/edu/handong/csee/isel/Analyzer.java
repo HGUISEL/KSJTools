@@ -60,7 +60,11 @@ public class Analyzer {
 			System.out.println(j+ " " + changedClassList.get(j) + " " + resultClassList.get(j));
 		}
 		*/
+		//Attribute attr = new Attribute("bug"); 
 		
+		//System.out.println("   instance at " + instances.get(0));
+		//instances.replaceAttributeAt(attr, " ");
+		//System.out.println("   replace atr " + instances.get(0));
 	}
 	
 	// input으로 받는 positive label name을 TRUE로, 아닌 것을 FALSE로 
@@ -93,22 +97,22 @@ public class Analyzer {
 				//System.out.println(" this is TRUE(clean) in original");
 				if (resultClassList.get(j).equals("TRUE")) {
 					TP++;
-					System.out.println("Instance " + j + " predicted as, buggy, (Actual class: buggy)");
+					// System.out.println("Instance " + j + " predicted as, buggy, (Actual class: buggy)");
 				}
 				else {
 					FN++;
-					System.out.println("Instance " + j + " predicted as, clean, (Actual class: buggy)"); 
+					// System.out.println("Instance " + j + " predicted as, clean, (Actual class: buggy)"); 
 				}
 			}
 			else if (changedClassList.get(j).equals("FALSE")) {
 				//System.out.println(" this is FALSE(buggy) in original");
 				if (resultClassList.get(j).equals("TRUE")) {
 					FP++;
-					System.out.println("Instance " + j + " predicted as, buggy, (Actual class: clean)");
+					// System.out.println("Instance " + j + " predicted as, buggy, (Actual class: clean)");
 				}
 				else {
 					TN++;
-					System.out.println("Instance " + j + " predicted as, clean, (Actual class: clean)");
+					// System.out.println("Instance " + j + " predicted as, clean, (Actual class: clean)");
 				}
 			}
 		}

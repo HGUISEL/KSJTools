@@ -13,6 +13,8 @@ public class Main {
 	String resultFilePath;
 	String attributeName;
 	String posLabelName;
+	
+	boolean removeLabel = false;
 	boolean help = false;
 	
 	public static void main (String[] args) throws Exception {
@@ -28,8 +30,13 @@ public class Main {
 		
 		if (parseOptions(options, args)) {
 			
-			if (help ) {
+			if (help) {
 				printHelp(options);
+			}
+			
+			if (removeLabel) {
+				CreateFile cf = new CreateFile(originalFilePath);
+				return;
 			}
 			
 			Analyzer analyze = new Analyzer(originalFilePath, resultFilePath, attributeName, posLabelName);
@@ -59,7 +66,7 @@ public class Main {
 				.desc("recieves the text file that contains result from spectral classifier with R")
 				.hasArg()
 				.argName("result file")
-				.required()
+				//.required()
 				.build());
 		
 		options.addOption(Option.builder("h").longOpt("help")
@@ -70,14 +77,18 @@ public class Main {
 				.desc("label (Class attrubite) name")
 				.hasArg()
 				.argName("attribute name")
-				.required()
+				//.required()
 				.build());
 		
 		options.addOption(Option.builder("p").longOpt("poslabel")
 				.desc("String value of bug label")
 				.hasArg()
 				.argName("positive label value")
-				.required()
+				//.required()
+				.build());
+		
+		options.addOption(Option.builder("n").longOpt("new")
+				.desc("to create new arff file that removed classifier label")
 				.build());
 		
 		return options;
@@ -95,6 +106,7 @@ public class Main {
 			posLabelName = cmd.getOptionValue("p");
 			attributeName = cmd.getOptionValue("l");
 			help = cmd.hasOption("h");
+			removeLabel = cmd.hasOption("n");
 			
 		} catch (Exception e) {
 			printHelp(options);
